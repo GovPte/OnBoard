@@ -1,0 +1,115 @@
+﻿@page
+@model OnBoard.WebApp.Pages.CommissionMembers.HistoryModel
+@{
+    ViewData["Title"] = "History of Board & Commission Members";
+}
+
+@{
+    <h3>@Model.Commission.CommissionName</h3>
+    if (Model.Commission.CommissionDescription != null)
+    {
+        <span><i>@Model.Commission.CommissionDescription</i></span><br />
+    }
+
+    <br />
+
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    @{
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <th class="col-md-1"></th>
+                        }
+                    }
+                    <th class="col-md-2">Member</th>
+                    <th class="col-md-3">Service</th>
+                    <th class="col-md-3">Term</th>
+                    <th class="col-md-2">Appointment</th>
+                    @{
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <th class="col-md-1">Slot / Sort Order</th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                    
+
+                @foreach (var member in Model.CommissionMembers) //TODO: Connect CommissionMember to UserExtended? AppExtended?
+                    //Need to sort by Last Name, then by First Name also so that sort order works better
+                {
+                    var user = Model.Users.Where(x => x.Id == member.AspNetUserId).SingleOrDefault();
+
+                    <tr class="row">
+                        @{
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <td class="col-md-1"><a class="btn btn-dark" asp-route-id="@member.CommissionMemberID" asp-page="./Edit">Edit</a></td>
+                            }
+                        }
+                        <td class="col-md-2">
+                        @if (!string.IsNullOrWhiteSpace(user.FullName))
+                        {
+                            @user.FullName<br /><i class="text-black-50">@member.CommissionTitle</i>
+                        }
+                        else
+                        {
+                            @user.FullName
+                        }
+                    </td>
+                        <td class="col-md-3">
+                        @if (member.StartDate.HasValue && member.EndDate.HasValue)
+                            {
+                                var text = $"{member.StartDate.Value.ToShortDateString()} - {member.EndDate.Value.ToShortDateString()}";
+                                if (DateTime.Now > member.EndDate.Value)
+                                {
+                                    <i class="text-black-50">
+                                        @text
+                                    </i>
+                                }
+                                else
+                                {
+                                    @member.StartDate.Value.ToShortDateString() <text> - Present</text>
+                                }
+                            }
+                        </td>
+                        <td class="col-md-3">
+                        @if (member.TermStartDate.HasValue && member.TermEndDate.HasValue) 
+                        {
+                            var text = $"{member.TermStartDate.Value.ToShortDateString()} - {member.TermEndDate.Value.ToShortDateString()}";
+                            if (DateTime.Now > member.TermEndDate.Value) //If term expired
+                            {
+                                <i class="text-black-50">
+                                    @text
+                                </i>
+                            }
+                            //Else not expired...
+                            else
+                            {
+                                @text
+                            }
+                        }
+                        </td>
+                        <td class="col-md-2">
+                            @if (member.CommissionMemberAppointmentMinutesLink != null)
+                            {
+                                <a target="_blank" href="@member.CommissionMemberAppointmentMinutesLink" title="@member.CommissionMemberAppointmentNotes">Minutes</a>
+                            }
+                            else if (member.CommissionMemberAppointmentNotes != null)
+                            {
+                                <span title="@member.CommissionMemberAppointmentNotes">Note</span>
+                            }
+                        </td>
+                        @{
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <td class="col-md-1">@member.CommissionMemberSlot / @member.CommissionMemberSort</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+}

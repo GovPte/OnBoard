@@ -1,0 +1,89 @@
+﻿@page
+@model OnBoard.WebApp.Pages.Apps.IndexModel
+
+@using OnBoard.WebApp.Data.Tables;
+
+    @{
+        ViewData["Title"] = "View Application";
+    }
+
+    <div>
+        <h3>Application</h3>
+
+        <p>
+            <h4>@Model.AppUser.UserExtendedFullName</h4>
+            @{if (Model.IsAdminOrManager())
+                {
+                    @Model.AppUser.UserExtendedAddressStreet<br />
+
+                    if (Model.AppUser.UserExtendedAddressExtended != null)
+                    {
+                        @Model.AppUser.UserExtendedAddressExtended<br />
+                    }
+
+                    if (Model.AppUser.UserExtendedPhoneHome != null)
+                    {
+                        @Model.AppUser.UserExtendedPhoneHome<br />
+                    }
+
+                    if (Model.AppUser.UserExtendedPhoneCell != null)
+                    {
+                        @Model.AppUser.UserExtendedPhoneCell<br />
+                    }
+
+                    @Model._userContext.Users.Where(x => x.Id == Model.AppUser.UserExtendedUserId).FirstOrDefault().Email<br /><br />
+                }
+            }
+            <i>Submitted @Model.App.ApplicationSubmitted.ToShortDateString()</i><br />
+
+        </p>
+
+        <table>
+
+            @{ 
+                var questionAnswers = Model._dbContext.QuestionAnswers.Where(x => x.ApplicationID == Model.App.ApplicationID).ToList();
+
+                foreach (QuestionAnswer qa in questionAnswers)
+                {
+                    <tr>
+                        <th>@Model._dbContext.ApplicationQuestions.Where(x => x.ApplicationQuestionID == qa.ApplicationQuestionID).FirstOrDefault().ApplicationQuestionText</th>
+                    </tr>
+                    <tr>
+                        @{
+                            var answer = "";
+                            if (qa.ApplicationQuestionID != 4)
+                            {
+                                answer = @qa.QuestionAnswerText;
+                            }
+                            else
+                            {
+                                if (qa.QuestionAnswerText != string.Empty)
+                                    answer = Model._dbContext.Commissions.Where(x => x.CommissionID.ToString() == qa.QuestionAnswerText).SingleOrDefault().CommissionName;
+                            }
+                        }
+                        <td>@answer</td>
+                    </tr>
+                }
+            }
+
+        </table>
+
+        <br />
+
+        <table>
+            <tr>
+                <th>Boards & Commissions Applied To</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        @foreach (CommissionApplication ca in @Model.CommissionsAppliedTo)
+                        {                    
+                            <li>@Model._dbContext.Commissions.Where(x => x.CommissionID == ca.CommissionID).SingleOrDefault().CommissionName</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+    </div>

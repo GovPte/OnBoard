@@ -1,0 +1,161 @@
+﻿@page
+@model OnBoard.WebApp.Pages.Applications.EastpointeModel
+@using OnBoard.WebApp.Data.Tables
+@{
+    ViewData["Title"] = "Board & Commission Application for the City of Eastpointe";
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>@ViewData["Title"]</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (Model.Message != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @Html.Raw(TempData["Message"])
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
+            <div class="form-group row">
+                <label asp-for="ApplicationSubmitted" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="ApplicationSubmitted" class="form-control" type="date" />
+                    <span asp-validation-for="ApplicationSubmitted" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserExtended.UserExtendedNameFirst" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="UserExtended.UserExtendedNameFirst" class="form-control" />
+                    <span asp-validation-for="UserExtended.UserExtendedNameFirst" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserExtended.UserExtendedNameLast" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="UserExtended.UserExtendedNameLast" class="form-control" />
+                    <span asp-validation-for="UserExtended.UserExtendedNameLast" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserExtended.UserExtendedAddressStreet" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="UserExtended.UserExtendedAddressStreet" class="form-control" />
+                    <span asp-validation-for="UserExtended.UserExtendedAddressStreet" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserExtended.UserExtendedPhoneHome" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="UserExtended.UserExtendedPhoneHome" class="form-control" />
+                    <span asp-validation-for="UserExtended.UserExtendedPhoneHome" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UserExtended.UserExtendedPhoneCell" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="UserExtended.UserExtendedPhoneCell" class="form-control" />
+                    <span asp-validation-for="UserExtended.UserExtendedPhoneCell" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="UserEmail" class="col-md-2 col-form-label text-right font-weight-bold"></label>
+                <div class="col-md-6">
+                    <input asp-for="UserEmail" class="form-control" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-right font-weight-bold">@Model.ApplicationQuestion1.ApplicationQuestionText</label>
+                <label asp-for="QuestionAnswer1.QuestionAnswerText">Yes</label>
+                <div class="col-md-2">
+                    <input asp-for="QuestionAnswer1.QuestionAnswerText" type="radio" value="Yes" class="form-control" />
+                </div>
+                <label asp-for="QuestionAnswer1.QuestionAnswerText">No</label>
+                <div class="col-md-2">
+                    <input asp-for="QuestionAnswer1.QuestionAnswerText" type="radio" value="No" class="form-control" />
+                </div>
+                <span asp-validation-for="QuestionAnswer1.QuestionAnswerText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-right font-weight-bold">@Model.ApplicationQuestion2.ApplicationQuestionText</label>
+                <label asp-for="QuestionAnswer2.QuestionAnswerText">Yes</label>
+                <div class="col-md-2">
+                    <input asp-for="QuestionAnswer2.QuestionAnswerText" type="radio" value="Yes" class="form-control" />
+                </div>
+                <label asp-for="QuestionAnswer2.QuestionAnswerText">No</label>
+                <div class="col-md-2">
+                    <input asp-for="QuestionAnswer2.QuestionAnswerText" type="radio" value="No" class="form-control" />
+                </div>
+                <span asp-validation-for="QuestionAnswer2.QuestionAnswerText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-right font-weight-bold">@Model.ApplicationQuestion3.ApplicationQuestionText</label>
+                <select asp-for="QuestionAnswer3.QuestionAnswerText" class="form-control" asp-items="ViewBag.Commissions">
+                    <option value="0">-- Select a Board or Commission --</option>
+                </select>
+                <span asp-validation-for="QuestionAnswer3.QuestionAnswerText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-right font-weight-bold">@Model.ApplicationQuestion4.ApplicationQuestionText</label>
+                <label asp-for="QuestionAnswer4.QuestionAnswerText">Yes</label>
+                <div class="col-md-2">
+                    <input asp-for="QuestionAnswer4.QuestionAnswerText" type="radio" value="Yes" class="form-control" />
+                </div>
+                <label asp-for="QuestionAnswer4.QuestionAnswerText">No</label>
+                <div class="col-md-2">
+                    <input asp-for="QuestionAnswer4.QuestionAnswerText" type="radio" value="No" class="form-control" />
+                </div>
+                <span asp-validation-for="QuestionAnswer4.QuestionAnswerText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-right font-weight-bold">@Model.ApplicationQuestion5.ApplicationQuestionText</label>
+                <input asp-for="QuestionAnswer5Text" class="col-md-6 form-control" type="text" />
+                <span asp-validation-for="QuestionAnswer5Text" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label text-right font-weight-bold">@Model.ApplicationQuestion6.ApplicationQuestionText</label>
+                <textarea asp-for="QuestionAnswer6Text" class="col-md-6 form-control" rows="5"></textarea>
+                <span asp-validation-for="QuestionAnswer6Text" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <i>Check the Board or Commission that you would like to serve on (you may check more than one):</i>
+                </div>
+
+                @foreach (Commission board in Model.Commissions)
+                {
+                    <div class="form-group row">
+                        <input type="checkbox" name="CommissionsSelected" value="@board.CommissionID" /><b>@board.CommissionName</b>
+                    </div>
+                    <div class="form-group row">
+                        @if (board.CommissionDescription != null)
+                        {
+                            <i class="ml-5">@board.CommissionDescription</i>
+                        }
+                    </div>
+                }
+            </div>
+
+            <p><input type="submit" class="btn btn-secondary" value="Submit Board and Commission Application" /></p>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

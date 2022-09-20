@@ -1,0 +1,137 @@
+﻿@page
+@model OnBoard.WebApp.Pages.CommissionMembers.ListModel
+@{
+    ViewData["Title"] = "List of Board & Commission Members";
+    var expiredTermsTotal = 0;
+    var vacantPositionsTotal = 0;
+}
+
+<h2>Boards &amp; Commissions</h2>
+<hr />
+@{
+    foreach (var c in Model.Commissions)
+    {
+        var commissionMembersActive = Model._cr.GetCommissionMembersActive(c.CommissionID);
+        var expiredTerms = commissionMembersActive.Where(x => x.EndDate <= DateTime.Now).Count();
+        var vacantPositions = c.CommissionMembersTotal - commissionMembersActive.Count;
+
+        <h3>@c.CommissionName</h3>
+        if (c.CommissionDescription != null)
+        {
+            <span><i>@c.CommissionDescription</i></span><br />
+        }
+        <span><b>@c.CommissionMembersTotal Total Members</b></span><br />
+        <h7 class="text-black-50">@expiredTerms expired terms</h7><text> | </text> 
+        <h7 class="text-black-50">@vacantPositions vacant positions</h7><text> | </text> 
+        <h7 class="text-black-50"><a asp-page="./History" asp-route-commissionId="@c.CommissionID">History</a></h7><br />
+        <br />
+
+            <table class="table">
+                <thead>
+                    <tr class="row">
+                        @{
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <th class="col-md-1"></th>
+                            }
+                        }
+                        <th class="col-md-2">Position</th>
+                        <th class="col-md-2">Member</th>
+                        <th class="col-md-3">Term</th>
+                        <th class="col-md-1">Appointment</th>
+                        @{
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <th class="col-md-1">Slot</th>
+                                <th class="col-md-1">Sort Order</th>
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                @{
+                    //Down below I can do for loop for the amount of folks on the commission
+                    //And then match with the number from the DB. If it's not there I can figure out term? hmmmmm
+                    //The two loops should be one, or else I can't do more than simply say "VACANT"
+                }
+
+                    @foreach (var member in commissionMembersActive.OrderBy(x => x.CommissionMemberSort)) //TODO: Connect CommissionMember to UserExtended? AppExtended?
+                        //Need to sort by Last Name, then by First Name also so that sort order works better
+                    {
+                        var user = Model.Users.Where(x => x.Id == member.AspNetUserId).SingleOrDefault();
+
+                        <tr class="row">
+                            @{
+                                if (User.IsInRole("Administrator"))
+                                {
+                                    <td class="col-md-1"><a class="btn btn-dark" asp-route-id="@member.CommissionMemberID" asp-page="./Edit">Edit</a></td>
+                                }
+                            }
+                            <td class="col-md-2">@member.CommissionTitle</td>
+                            <td class="col-md-2">@user.FullName</td>
+                            <td class="col-md-3">
+                                @{
+                                    //If term expired...
+                                    var text = $"{member.StartDate.Value.ToShortDateString()} - {member.EndDate.Value.ToShortDateString()}";
+                                    if (DateTime.Now > member.EndDate.Value)
+                                    {
+                                        <i class="text-black-50">
+                                            @text
+                                    </i>
+
+                                    expiredTermsTotal++;
+                                }
+                                    //Else not expired...
+                                    else
+                                    {
+                                        @text
+                                    }
+                                }
+                            </td>
+                            <td class="col-md-1">
+                                @if (member.CommissionMemberAppointmentMinutesLink != null)
+                                {
+                                    <a target="_blank" href="@member.CommissionMemberAppointmentMinutesLink" title="@member.CommissionMemberAppointmentNotes">Minutes</a>
+                                }
+                                else if (member.CommissionMemberAppointmentNotes != null)
+                                {
+                                    <span title="@member.CommissionMemberAppointmentNotes">Note</span>
+                                }
+                            </td>
+                            @{
+                                if (User.IsInRole("Administrator"))
+                                {
+                                    <td class="col-md-1">@member.CommissionMemberSlot</td>
+                                    <td class="col-md-1">@member.CommissionMemberSort</td>
+                                }
+                            }
+                        </tr>
+                    }
+                    @for (int i=c.CommissionMembersTotal; i > commissionMembersActive.Count; i--)
+                    {
+                        <tr class="row">
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <td class="col-md-1"></td>
+                            }
+                            <td class="col-md-2"></td>
+                            <td class="col-md-2"><i class="text-black-50">VACANT</i></td>
+                            <td class="col-md-3"></td>
+                            <td class="col-md-1"></td>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <td class="col-md-1"></td>
+                                <td class="col-md-1"></td>
+                            }
+                        </tr>
+
+                        vacantPositionsTotal++;
+                    }
+                </tbody>
+            </table>
+        <br /><hr />
+    }
+    <h7 class="text-black-50">@expiredTermsTotal expired terms total</h7><text> | </text>
+    <h7 class="text-black-50">@vacantPositionsTotal vacant positions total</h7>
+}

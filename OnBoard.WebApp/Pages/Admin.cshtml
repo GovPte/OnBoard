@@ -1,0 +1,61 @@
+﻿@page
+@model OnBoard.WebApp.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+@using System.Linq;
+@using OnBoard.WebApp.Data.Tables;
+
+<h2>Recent Applications</h2>
+
+<table class="table" cellpadding="4" cellspacing="4">
+    <tr class="row">
+        <th class="col-md-2">Name</th>
+        <th class="col-md-1">Application Submitted</th>
+        <th class="col-md-2">Phone</th>
+        <th class="col-md-3">Email</th>
+        <th class="col-md-4">Applied To</th>
+    </tr>
+    @{
+
+        foreach (Application app in Model.Applications)
+        {
+            if (app.ApplicationUserID != null)
+            {
+                <tr class="row">
+                    <td class="col-md-2">
+                        <a asp-page="/Apps/Index" asp-route-id="@app.ApplicationID">@app.UserExtended.UserExtendedFullName</a>
+                    </td>
+                    <td class="col-md-1">
+                        @app.ApplicationSubmitted.ToShortDateString()
+                    </td>
+                    <td class="col-md-2">
+                        @if (app.UserExtended.UserExtendedPhoneCell != null && app.UserExtended.UserExtendedPhoneCell != "")
+                        {
+                            @app.UserExtended.UserExtendedPhoneCell <text> (cell)</text><br />
+                        }
+                        @if (app.UserExtended.UserExtendedPhoneHome != null && app.UserExtended.UserExtendedPhoneHome != "")
+                        {
+                            @app.UserExtended.UserExtendedPhoneHome <text> (home)</text>
+                        }
+                    </td>
+                    <td class="col-md-3">
+                        @{
+                            var u = Model.Users.Where(x => x.Id == app.ApplicationUserID).FirstOrDefault();
+                            if (u != null)
+                            {
+                                @u.UserName
+                            }
+                        }
+                    </td>
+                    <td class="col-md-4">
+                        @{
+                            @Model._as.GetBoardsAndCommissionsAppliedTo(app.ApplicationID)
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>

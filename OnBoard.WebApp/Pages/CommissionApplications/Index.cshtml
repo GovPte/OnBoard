@@ -1,0 +1,71 @@
+﻿@page
+@model OnBoard.WebApp.Pages.CommissionApplications.IndexModel
+
+<div>
+    @{
+        //If showing ALL applications...
+        if (Model.Commission == null)
+        {
+            <h1>All Applications</h1>
+        }
+        //Else showing for a single commission...
+        else
+        {
+             <h1>@Model.Commission.CommissionName Applications</h1>
+        }
+    }
+
+    <h1></h1>
+    <table class="table">
+        <thead>
+            <tr class="row">
+                <th class="col-md-2">Applicant</th>
+                <th class="col-md-1">Submitted</th>
+                @{ if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+                    {
+                        <th class="col-md-2">Phone</th>
+                        <th class="col-md-3">Email Address</th>
+                    }
+                }
+                    <th class="col-md-4">Applied To</th>
+                </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var app in Model.Applications)
+                {
+                    //Get user
+                    var u = Model.Users.Where(x => x.Id == app.ApplicationUserID).FirstOrDefault();
+                    var ue = Model.UsersExtended.Where(x => x.UserExtendedUserId == app.ApplicationUserID).FirstOrDefault();
+
+                    if (u != null && ue != null)
+                    {
+                        <tr class="row">
+                            <td class="col-md-2"><a asp-page="/Apps/Index" asp-route-id="@app.ApplicationID">@ue.UserExtendedFullName</a></td>
+                            <td class="col-md-1">@app.ApplicationSubmitted.ToShortDateString()</td>
+
+                            @{ if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+                                {
+                                    <td class="col-md-2">
+                                        @if (ue.UserExtendedPhoneCell != null && ue.UserExtendedPhoneCell != "")
+                                        {
+                                            @ue.UserExtendedPhoneCell <text> (cell)</text><br />
+                                        }
+                                        @if (ue.UserExtendedPhoneHome != null && ue.UserExtendedPhoneHome != "")
+                                        {
+                                            @ue.UserExtendedPhoneHome <text> (home)</text>
+                                        }
+                                    </td>
+                                    <td class="col-md-3">@u.Email</td>
+                                }
+                            }
+
+                            <td class="col-md-4">@Model._ar.GetBoardsAndCommissionsAppliedTo(app.ApplicationID)</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+</div>

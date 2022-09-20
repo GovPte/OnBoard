@@ -1,0 +1,39 @@
+﻿@page
+@model OnBoard.WebApp.Pages.ArchivedModel
+@{
+    ViewData["Title"] = "Archived";
+}
+
+<h2>Archived Applications</h2>
+
+<div class="col">
+
+    <table>
+        <tr>
+            <th>Applicant</th>
+            <th>Username / Email</th>
+            <th>Submitted</th>
+            <th>Archived</th>
+            <th>Applied To</th>
+        </tr>
+
+        @{
+         
+            foreach (var archivedApp in Model.archivedApplications)
+            {
+                //Get user
+                var userExtended = Model._us.GetUserExtended(archivedApp.ApplicationUserID);
+
+                <tr>
+                    <td>@userExtended.UserExtendedFullName</td>
+                    <td>@Model._um.Users.Where(x => x.Id == archivedApp.ApplicationUserID).FirstOrDefault().UserName</td>
+                    <td>@archivedApp.ApplicationSubmitted</td>
+                    <td>@archivedApp.ApplicationArchived</td>
+                    <td>@Model._as.GetBoardsAndCommissionsAppliedTo(archivedApp.ApplicationID)</td>
+                </tr>
+            }
+        }
+
+    </table>
+
+</div>

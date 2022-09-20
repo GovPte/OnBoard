@@ -1,0 +1,129 @@
+﻿@page
+@model OnBoard.WebApp.Pages.CommissionMembers.AddModel
+@{
+    ViewData["Title"] = "Appoint Commission Member";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr />
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Html.Raw(TempData["Message"])
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="col-md-8">
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Applicant</label>
+            <div class="col-md-9">
+                <select class="form-control" asp-for="ApplicantId" asp-items="ViewBag.Applicants">
+                    <option value="0" selected>-- Pick an Applicant! --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold">Commission</label>
+            <div class="col-md-9">
+                <select class="form-control" asp-for="CommissionMember.CommissionID" asp-items="ViewBag.Commissions">
+                    <option value="0" selected>-- Pick a Commission! --</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionTitle"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionTitle" />
+                <span asp-validation-for="CommissionMember.CommissionTitle"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.StartDate"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.StartDate" type="date" />
+                <span asp-validation-for="CommissionMember.StartDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.EndDate"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.EndDate" type="date" />
+                <span asp-validation-for="CommissionMember.EndDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.TermStartDate"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.TermStartDate" type="date" />
+                <span asp-validation-for="CommissionMember.TermStartDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.TermEndDate"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.TermEndDate" type="date" />
+                <span asp-validation-for="CommissionMember.TermEndDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberSlot"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionMemberSlot" />
+                <span asp-validation-for="CommissionMember.CommissionMemberSlot"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberSort"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionMemberSort" />
+                <span asp-validation-for="CommissionMember.CommissionMemberSort"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberAppointmentNotes"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionMemberAppointmentNotes" />
+                <span asp-validation-for="CommissionMember.CommissionMemberAppointmentNotes"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberAppointmentMinutesLink"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionMemberAppointmentMinutesLink" />
+                <span asp-validation-for="CommissionMember.CommissionMemberAppointmentMinutesLink"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberResignationRemovalNotes"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionMemberResignationRemovalNotes" />
+                <span asp-validation-for="CommissionMember.CommissionMemberResignationRemovalNotes"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink"></label>
+            <div class="col-md-9">
+                <input class="form-control" asp-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink" />
+                <span asp-validation-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                <input class="btn btn-dark" type="submit" value="Save Appointment" /> | <a asp-page="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

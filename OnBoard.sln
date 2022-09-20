@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnBoard.WebApp", "OnBoard.WebApp\OnBoard.WebApp.csproj", "{E5181424-0E87-4554-A4D9-2467530790C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnBoard.Tests", "OnBoard.XUnitTests\OnBoard.Tests.csproj", "{653125FC-DCFC-4876-BBBF-AC60659779C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5181424-0E87-4554-A4D9-2467530790C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5181424-0E87-4554-A4D9-2467530790C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5181424-0E87-4554-A4D9-2467530790C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5181424-0E87-4554-A4D9-2467530790C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{653125FC-DCFC-4876-BBBF-AC60659779C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{653125FC-DCFC-4876-BBBF-AC60659779C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{653125FC-DCFC-4876-BBBF-AC60659779C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{653125FC-DCFC-4876-BBBF-AC60659779C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0F270FD-93DE-4404-BC64-886B5450F4E8}
+	EndGlobalSection
+EndGlobal

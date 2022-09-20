@@ -1,0 +1,30 @@
+﻿@page
+@model OnBoard.WebApp.Pages.Commissions.IndexModel
+@{
+}
+
+<div class="col-md-8">
+
+    <table class="table">
+        <thead>
+            <tr class="row">
+                <th class="col-md-8">Commission</th>
+                <th class="col-md-4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                foreach (var c in Model.Commissions)
+                {
+                    <tr class="row">
+                        <td class="col-md-8">@c.CommissionName</td>
+                        <td class="col-md-4"><a class="btn btn-secondary" asp-page="../CommissionApplications/Index" asp-route-id="@c.CommissionID">Applicants</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+
+
+</div>
