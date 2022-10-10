@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -36,18 +37,24 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
         public AppUserModels Applicant = new AppUserModels();
 
         [BindProperty]
-        public CommissionMember CommissionMember { get; set; }
+        public CommissionMember CommissionMember { get; set; } = new CommissionMember();
         [BindProperty]
-        public string ApplicantId { get; set; }
+        public string ApplicantId { get; set; } = string.Empty;
         [BindProperty]
         public int AspnetUserId { get; set; }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet(int id, DateTime endDate)
         {
             if (IsAdminOrManager())
             {
                 //Get Commission Member...
                 CommissionMember = _commissionService.GetCommissionMember(id);
+
+                //Override values for resignations, etc...
+                //TODO: Add a note at the top of the page that End Date was changed from x to y
+                //TODO: highlight Resignation boxes?
+                //TODO: Hvae this setup for newly appointed person if someone new appointed? Could be a separate option.
+                CommissionMember.EndDate = endDate;
 
                 //Gather Commissions...
                 Commissions = _commissionService.GetCommissions().ToList();
@@ -57,7 +64,7 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
                 var applicationsExtended = _context.ApplicationsExtended.ToList();
                 var usersFinal = _userService.GetUsersInfo().ToList();
                 ViewData["Applicants"] = new SelectList(usersFinal.OrderBy(x => x.LastName).ThenBy(x => x.FirstName), "Id", "FullName");
-
+                
                 return Page();
             }
             else

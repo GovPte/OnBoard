@@ -44,6 +44,7 @@
                             {
                                 <th class="col-md-1">Slot</th>
                                 <th class="col-md-1">Sort Order</th>
+                                <th class="col-md-1"></th>
                             }
                         }
                     </tr>
@@ -104,6 +105,11 @@
                                 {
                                     <td class="col-md-1">@member.CommissionMemberSlot</td>
                                     <td class="col-md-1">@member.CommissionMemberSort</td>
+                                    <td class="col-md-1">
+                                        <a class="btn btn-dark" asp-route-id="@member.CommissionMemberID" 
+                                            asp-route-endDate="@DateTime.Now.Date"
+                                            asp-page="./Edit" >Resigned</a>
+                                    </td>
                                 }
                             }
                         </tr>
