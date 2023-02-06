@@ -25,7 +25,7 @@
                     <th class="col-md-2">Member</th>
                     <th class="col-md-3">Service</th>
                     <th class="col-md-3">Term</th>
-                    <th class="col-md-2">Appointment</th>
+                    <th class="col-md-2">Appointment / Resignation</th>
                     @{
                         if (User.IsInRole("Administrator"))
                         {
@@ -93,15 +93,26 @@
                         }
                         </td>
                         <td class="col-md-2">
-                            @if (member.CommissionMemberAppointmentMinutesLink != null)
+                            @if (member.CommissionMemberAppointmentMinutesLink != null) //Appointments
                             {
-                                <a target="_blank" href="@member.CommissionMemberAppointmentMinutesLink" title="@member.CommissionMemberAppointmentNotes">Minutes</a>
+                                <a target="_blank" href="@member.CommissionMemberAppointmentMinutesLink" title="@member.CommissionMemberAppointmentNotes">Appointment</a>
                             }
-                            else if (member.CommissionMemberAppointmentNotes != null)
+                            else if (member.CommissionMemberAppointmentNotes != null) //Appointments
                             {
-                                <span title="@member.CommissionMemberAppointmentNotes">Note</span>
+                                <span title="@member.CommissionMemberAppointmentNotes">Appointment</span>
                             }
-                        </td>
+
+                            @if (member.CommissionMemberResignationRemovalMinutesLink != null) //Resignations
+                            {
+                                <text> / </text>
+                                <a target="_blank" href="@member.CommissionMemberResignationRemovalMinutesLink" title="@member.CommissionMemberResignationRemovalMinutesLink">Resignation</a>
+                            }
+                            else if (member.CommissionMemberResignationRemovalNotes != null) //Resignations
+                            {
+                                <text> / </text>
+                                <span title="@member.CommissionMemberResignationRemovalNotes">Resignation</span>
+                            }
+                    </td>
                         @{
                             if (User.IsInRole("Administrator"))
                             {
