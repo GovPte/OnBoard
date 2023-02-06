@@ -4,6 +4,12 @@
     ViewData["Title"] = "Appoint Commission Member";
 }
 
+<style>
+    .highlight {
+        background-color: yellow;
+    }
+</style>
+
 <h3>@ViewData["Title"]</h3>
 <hr />
 
@@ -54,7 +60,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.EndDate" title="Date that member resigned, was removed from the commission, or last day of the term."></label>
+            <label id="lblEndDate" class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.EndDate" title="Date that member resigned, was removed from the commission, or last day of the term."></label>
             <div class="col-md-9">
                 <input class="form-control" asp-for="CommissionMember.EndDate" type="date" />
                 <span asp-validation-for="CommissionMember.EndDate"></span>
@@ -103,14 +109,14 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberResignationRemovalNotes"></label>
+            <label id="lblResignationMinutesNotes" class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberResignationRemovalNotes"></label>
             <div class="col-md-9">
                 <input class="form-control" asp-for="CommissionMember.CommissionMemberResignationRemovalNotes" />
                 <span asp-validation-for="CommissionMember.CommissionMemberResignationRemovalNotes"></span>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink"></label>
+            <label id="lblResignationMinutesLink" class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink"></label>
             <div class="col-md-9">
                 <input class="form-control" asp-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink" />
                 <span asp-validation-for="CommissionMember.CommissionMemberResignationRemovalMinutesLink"></span>
@@ -127,4 +133,12 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @if (Model.CommissionMember.EndDate > DateTime.MinValue) //Highlight fields relevant to a resignation
+    {
+        <script>
+            $("#lblEndDate").addClass("highlight");
+            $("#lblResignationMinutesNotes").addClass("highlight");
+            $("#lblResignationMinutesLink").addClass("highlight");
+        </script>
+    }
 }
