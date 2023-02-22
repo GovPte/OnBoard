@@ -42,8 +42,9 @@
                         @{
                             if (User.IsInRole("Administrator"))
                             {
-                                <th class="col-md-1">Slot</th>
-                                <th class="col-md-1">Sort Order</th>
+                                <th class="col-md-1">Slot / Sort Order</th>
+                                <th class="col-md-1"></th>
+                                <th class="col-md-1"></th>
                             }
                         }
                     </tr>
@@ -102,8 +103,17 @@
                             @{
                                 if (User.IsInRole("Administrator"))
                                 {
-                                    <td class="col-md-1">@member.CommissionMemberSlot</td>
-                                    <td class="col-md-1">@member.CommissionMemberSort</td>
+                                    <td class="col-md-1">@member.CommissionMemberSlot / @member.CommissionMemberSort</td>
+                                    <td class="col-md-1">
+                                        <a class="btn btn-dark" asp-route-id="@member.CommissionMemberID" 
+                                            asp-route-endDate="@DateTime.Now.Date"
+                                            asp-page="./Edit" >Resigned</a>
+                                    </td>
+                                    <td class="col-md-1">
+                                        <a class="btn btn-dark" asp-route-id="@member.CommissionMemberID"
+                                           asp-route-endDate="@DateTime.Now.Date" asp-route-redirectToNextAppointee="true"
+                                           asp-page="./Edit">New Appointee</a>
+                                    </td>
                                 }
                             }
                         </tr>
@@ -121,6 +131,7 @@
                             <td class="col-md-1"></td>
                             @if (User.IsInRole("Administrator"))
                             {
+                                <td class="col-md-1"></td>
                                 <td class="col-md-1"></td>
                                 <td class="col-md-1"></td>
                             }

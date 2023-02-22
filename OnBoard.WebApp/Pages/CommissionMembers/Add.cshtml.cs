@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
         [BindProperty]
         public string ApplicantId { get; set; }
 
-        public IActionResult OnGet(string userID, int commissionID)
+        public IActionResult OnGet(string userID, int commissionID, int slot, DateTime? startDate, DateTime? endDate, DateTime? termStartDate, DateTime? termEndDate, int? sortOrder)
         {
             if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
             {
@@ -78,6 +79,16 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
 
                 UserID = userID;
 
+                //Set Commission Member information...
+                CommissionMember = new CommissionMember();
+                CommissionMember.CommissionID = commissionID;
+                CommissionMember.CommissionMemberSlot = slot;
+                CommissionMember.StartDate = startDate;
+                CommissionMember.EndDate = endDate;
+                CommissionMember.TermStartDate = termStartDate;
+                CommissionMember.TermEndDate = termEndDate;
+                CommissionMember.CommissionMemberSort = sortOrder;
+
                 return Page();
             }
             else
@@ -99,7 +110,7 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
                 _context.CommissionMembers.Add(CommissionMember);
                 await _context.SaveChangesAsync();
                 Message = "Appointment made!";
-                return RedirectToPage("./Add");
+                return RedirectToPage("./List");
             }
 
             return Page();
