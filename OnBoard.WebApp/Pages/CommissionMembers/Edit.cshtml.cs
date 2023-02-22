@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -42,8 +43,10 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
         public string ApplicantId { get; set; } = string.Empty;
         [BindProperty]
         public int AspnetUserId { get; set; }
+        [BindProperty]
+        public bool RedirectToNextAppointee { get; set; } = false; //By default we are not redirecting to appoint the next person
 
-        public IActionResult OnGet(int id, DateTime endDate)
+        public IActionResult OnGet(int id, DateTime endDate, bool redirectToNextAppointee = false)
         {
             if (IsAdminOrManager())
             {
@@ -93,7 +96,26 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
                 _context.CommissionMembers.Update(member);
                 await _context.SaveChangesAsync();
                 Message = "Appointment update!";
-                return RedirectToPage("./List");
+
+                //Redirect to Commission page if there is no further action...
+                if (!RedirectToNextAppointee)
+                    return RedirectToPage("./List");
+                else //Else redirect to a new commission member appointment page to appoint the next member
+                {
+                    //There are some fields we can fill in from the previous resignation...
+                    //  Term Start and End Dates, Slot (the Commission page should allow reordering)
+                    //  Do date math
+                    return RedirectToPage("./Add", new
+                    {
+                        commissionId = member.CommissionID,
+                        startDate = member.EndDate.Value.AddDays(1),
+                        endDate = member.TermEndDate.Value.AddYears(3), //TODO: make this dynamic with length of terms, also the date should be current term if that's the time frame we are in
+                        termStartDate = member.TermEndDate.Value,
+                        termEndDate = member.TermEndDate.Value.AddYears(3), //TODO: make this dynamic with length of terms, also the date should be current term if that's the time frame we are in
+                        slot = member.CommissionMemberSlot,
+                        sortOrder = member.CommissionMemberSort
+                    });
+                }
             }
 
             return Page();

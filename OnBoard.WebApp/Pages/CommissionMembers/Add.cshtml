@@ -4,6 +4,12 @@
     ViewData["Title"] = "Appoint Commission Member";
 }
 
+<style>
+    .highlight {
+        background-color: yellow;
+    }
+</style> 
+
 <h3>@ViewData["Title"]</h3>
 <hr />
 
@@ -45,7 +51,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.StartDate"></label>
+            <label id="lblStartDate" class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.StartDate"></label>
             <div class="col-md-9">
                 <input class="form-control" asp-for="CommissionMember.StartDate" type="date" />
                 <span asp-validation-for="CommissionMember.StartDate"></span>
@@ -87,14 +93,14 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberAppointmentNotes"></label>
+            <label id="lblAppointmentMinutesNotes" class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberAppointmentNotes"></label>
             <div class="col-md-9">
                 <input class="form-control" asp-for="CommissionMember.CommissionMemberAppointmentNotes" />
                 <span asp-validation-for="CommissionMember.CommissionMemberAppointmentNotes"></span>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberAppointmentMinutesLink"></label>
+            <label id="lblAppointmentMinutesLink" class="col-md-3 col-form-label font-weight-bold" asp-for="CommissionMember.CommissionMemberAppointmentMinutesLink"></label>
             <div class="col-md-9">
                 <input class="form-control" asp-for="CommissionMember.CommissionMemberAppointmentMinutesLink" />
                 <span asp-validation-for="CommissionMember.CommissionMemberAppointmentMinutesLink"></span>
@@ -125,5 +131,13 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $("#lblStartDate").addClass("highlight");
+        $("#lblAppointmentMinutesNotes").addClass("highlight");
+        $("#lblAppointmentMinutesLink").addClass("highlight");
+    </script>
 }
