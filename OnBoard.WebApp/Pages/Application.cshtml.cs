@@ -31,7 +31,7 @@ namespace OnBoard.WebApp.Pages
         }
 
         [TempData]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         public Application Application { get; set; } = new Application();
         public List<ApplicationQuestion> ApplicationQuestions { get; set; } = new List<ApplicationQuestion>();
         public ApplicationQuestion ApplicationQuestion { get; set; } = new ApplicationQuestion();

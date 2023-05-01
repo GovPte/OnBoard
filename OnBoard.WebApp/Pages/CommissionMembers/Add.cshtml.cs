@@ -27,7 +27,7 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
         }
 
         [TempData]
-        public string Message { get; set; } = "";
+        public string Message { get; set; } = string.Empty;
 
         public string UserID { get; set; }
 

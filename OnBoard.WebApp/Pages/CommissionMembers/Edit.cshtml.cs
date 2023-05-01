@@ -31,7 +31,7 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
         }
 
         [TempData]
-        public string Message { get; set; } = "";
+        public string Message { get; set; } = string.Empty;
 
         public List<Commission> Commissions { get; set; } = new List<Commission>();
         public List<AppUserModels> Applicants = new List<AppUserModels>();
