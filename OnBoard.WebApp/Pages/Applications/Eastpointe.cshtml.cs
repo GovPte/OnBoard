@@ -26,7 +26,7 @@ namespace OnBoard.WebApp.Pages.Applications
         }
 
         [TempData]
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         public Application Application { get; set; } = new Application();
         [BindProperty]
         public DateTime ApplicationSubmitted { get; set; } = new DateTime();
