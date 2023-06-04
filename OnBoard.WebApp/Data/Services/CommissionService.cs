@@ -74,7 +74,7 @@ namespace OnBoard.WebApp.Data.Services
             {
                 //If there is a member in the slot right now, and they have not resigned or been removed, return that person...
                 var member = _commissionMembersService.FindBy(x => x.CommissionID == commissionID && x.StartDate <= now && x.EndDate > now && 
-                    x.CommissionMemberSlot == i).SingleOrDefault();
+                    x.CommissionMemberSlot == i).OrderByDescending(x => x.StartDate).FirstOrDefault();
 
                 //If member found, and they did not resign or get removed, show them...
                 if (member != null && (member.CommissionMemberResignationRemovalNotes == null &&
@@ -86,7 +86,7 @@ namespace OnBoard.WebApp.Data.Services
                 else
                 {
                     var lastMember = _commissionMembersService.FindBy(x => x.CommissionID == commissionID && 
-                                                x.CommissionMemberSlot == i).OrderByDescending(x => x.StartDate).Take(1).SingleOrDefault();
+                                                x.CommissionMemberSlot == i).OrderByDescending(x => x.StartDate).FirstOrDefault();
 
                     //If member found, and they did not resign or get removed, show them...
                     if (lastMember != null && (lastMember.CommissionMemberResignationRemovalNotes == null &&
