@@ -56,8 +56,9 @@ namespace OnBoard.WebApp.Pages.CommissionMembers
                 //Override values for resignations, etc...
                 //TODO: Add a note at the top of the page that End Date was changed from x to y
                 //TODO: highlight Resignation boxes?
-                //TODO: Hvae this setup for newly appointed person if someone new appointed? Could be a separate option.
-                CommissionMember.EndDate = endDate;
+                //TODO: Have this setup for newly appointed person if someone new appointed? Could be a separate option.
+                if (endDate != new DateTime())
+                    CommissionMember.EndDate = endDate;
 
                 //Gather Commissions...
                 Commissions = _commissionService.GetCommissions().ToList();
