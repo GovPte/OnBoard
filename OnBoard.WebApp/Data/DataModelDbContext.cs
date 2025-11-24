@@ -122,6 +122,11 @@ namespace OnBoard.WebApp.Data
             });
 
             mb.Entity<Setting>().HasData(new Setting { SettingID = 1, SettingName = "ArchiveInMonths", SettingValue = "24" });
+
+            //Document Types
+            mb.Entity<DocumentType>().HasData(new DocumentType { DocumentTypeID = 1, DocumentTypeName = "budget" });
+            mb.Entity<DocumentType>().HasData(new DocumentType { DocumentTypeID = 2, DocumentTypeName = "audit" });
+            mb.Entity<DocumentType>().HasData(new DocumentType { DocumentTypeID = 3, DocumentTypeName = "Master Plan" });
         }
 
         //Reference the other tables for the database...
@@ -130,6 +135,9 @@ namespace OnBoard.WebApp.Data
         public virtual DbSet<Commission> Commissions { get; set; }
         public virtual DbSet<CommissionApplication> CommissionApplications { get; set; }
         public virtual DbSet<CommissionMember> CommissionMembers { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<MunicipalityDocument> MunicipalityDocuments { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
 
