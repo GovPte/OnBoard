@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnBoard.WebApp.Data;
 
 namespace OnBoard.WebApp.Migrations
 {
     [DbContext(typeof(DataModelDbContext))]
-    partial class DataModelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124184911_Migration026-AddingDocuments")]
+    partial class Migration026AddingDocuments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -502,23 +504,6 @@ namespace OnBoard.WebApp.Migrations
                     b.HasKey("DocumentTypeID");
 
                     b.ToTable("DocumentTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            DocumentTypeID = 1,
-                            DocumentTypeName = "budget"
-                        },
-                        new
-                        {
-                            DocumentTypeID = 2,
-                            DocumentTypeName = "audit"
-                        },
-                        new
-                        {
-                            DocumentTypeID = 3,
-                            DocumentTypeName = "Master Plan"
-                        });
                 });
 
             modelBuilder.Entity("OnBoard.WebApp.Data.Tables.Municipality", b =>
