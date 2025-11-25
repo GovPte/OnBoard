@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "CommissionMembers/List",
+      "launchUrl": "Info",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,6 +19,7 @@
     "OnBoard.WebApp": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "Info",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
