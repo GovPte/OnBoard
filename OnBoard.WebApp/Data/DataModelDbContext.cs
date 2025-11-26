@@ -35,6 +35,11 @@ namespace OnBoard.WebApp.Data
             //The entity type 'Microsoft.AspNet.Identity.EntityFramework.IdentityUserLogin<string>' requires a key to be defined
             //https://stackoverflow.com/questions/34000091/the-entity-type-microsoft-aspnet-identity-entityframework-identityuserloginstr
 
+            //======//
+            // keys //
+            //======//
+            mb.Entity<OrganizationDocument>().HasAlternateKey(k => new { k.OrganizationID, k.DocumentID });
+
             //===========//
             // Seed data //
             //===========//

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnBoard.WebApp.Data;
 
@@ -11,9 +12,11 @@ using OnBoard.WebApp.Data;
 namespace OnBoard.WebApp.Migrations
 {
     [DbContext(typeof(DataModelDbContext))]
-    partial class DataModelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251126163437_Migration030-AddedOrgDocsAlternateKey")]
+    partial class Migration030AddedOrgDocsAlternateKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -6,7 +6,7 @@ namespace OnBoard.WebApp.Pages.Info
 {
     public class IndexModel : PageModel
     {
-        IDocumentService _documentService;
+        public IDocumentService _documentService;
 
         public IndexModel(IDocumentService documentService)
         {

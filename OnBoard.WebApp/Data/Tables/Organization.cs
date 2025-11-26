@@ -1,4 +1,6 @@
-﻿namespace OnBoard.WebApp.Data.Tables
+﻿using System.Collections;
+
+namespace OnBoard.WebApp.Data.Tables
 {
     public class Organization
     {
