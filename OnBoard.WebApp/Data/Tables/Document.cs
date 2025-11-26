@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnBoard.WebApp.Data.Tables
@@ -15,5 +16,6 @@ namespace OnBoard.WebApp.Data.Tables
         public DateTime? DocumentEnd { get; set; }
         public int DocumentTypeID { get; set; }
         public DocumentType DocumentType { get; set; }
+        public ICollection<Organization> Organizations { get; set; }
     }
 }
