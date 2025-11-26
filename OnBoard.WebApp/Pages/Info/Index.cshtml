@@ -7,18 +7,17 @@
         <table class="table">
             <thead>
                 <tr class="row">
-                    <th class="col-md-2">Document Title</th>
-                    <th class="col-md-4">Document URL</th>
+                    <th class="col-md-4">Document Title & Link</th>
                     <th class="col-md-2">Document Type</th>
                 </tr>
             </thead>
             <tbody>
+
             @{
                 foreach(var doc in Model.Documents)
                 {
                     <tr class="row">
-                        <td class="col-md-2">@doc.DocumentTitle</td>
-                        <td class="col-md-4">@doc.DocumentURL</td>
+                        <td class="col-md-4"><a target="_blank" href="@doc.DocumentURL">@doc.DocumentTitle</a></td>
                         <td class="col-md-2">@doc.DocumentType.DocumentTypeName</td>
                     </tr>
                 }

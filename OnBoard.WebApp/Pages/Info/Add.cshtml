@@ -1,0 +1,64 @@
+﻿@page
+@model OnBoard.WebApp.Pages.Info.AddModel
+@{
+    <h2>Add Document</h2>
+    <hr />
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <div class="col-md-8">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label font-weight-bold">Organization</label>
+                <div class="col-md-9">
+                    <select class="form-control" asp-for="OrganizationIDs" asp-items="ViewBag.Organizations">
+                        <option value="0" selected>-- Pick the Organization(s) this Document belongs to --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label font-weight-bold" asp-for="Document.DocumentTitle"></label>
+                <div class="col-md-9">
+                    <input class="form-control" asp-for="Document.DocumentTitle" />
+                    <span asp-validation-for="Document.DocumentTitle"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label font-weight-bold" asp-for="Document.DocumentURL"></label>
+                <div class="col-md-9">
+                    <input class="form-control" asp-for="Document.DocumentURL" />
+                    <span asp-validation-for="Document.DocumentURL"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label id="lblStartDate" class="col-md-3 col-form-label font-weight-bold" asp-for="Document.DocumentStart"></label>
+                <div class="col-md-9">
+                    <input class="form-control" asp-for="Document.DocumentStart" type="date" />
+                    <span asp-validation-for="Document.DocumentStart"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label font-weight-bold" asp-for="Document.DocumentEnd"></label>
+                <div class="col-md-9">
+                    <input class="form-control" asp-for="Document.DocumentEnd" type="date" />
+                    <span asp-validation-for="Document.DocumentEnd"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label font-weight-bold">Document Type</label>
+                <div class="col-md-9">
+                    <select class="form-control" asp-for="Document.DocumentTypeID" asp-items="ViewBag.DocumentTypes">
+                        <option value="0" selected>-- Pick the Document Type --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                    <input class="btn btn-dark" type="submit" value="Save Document" /> | <a asp-page="Index">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+}

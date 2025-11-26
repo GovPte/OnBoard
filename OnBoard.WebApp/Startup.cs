@@ -64,12 +64,16 @@ namespace OnBoard.WebApp
             services.AddScoped<IBaseService<CommissionApplication>, BaseService<CommissionApplication>>();
             services.AddScoped<IBaseService<CommissionMember>, BaseService<CommissionMember>>();
             services.AddScoped<IBaseService<Document>, BaseService<Document>>();
+            services.AddScoped<IBaseService<DocumentType>, BaseService<DocumentType>>();
+            services.AddScoped<IBaseService<Organization>, BaseService<Organization>>();
+            services.AddScoped<IBaseService<OrganizationDocument>, BaseService<OrganizationDocument>>();
             services.AddScoped<IBaseService<ApplicationExtended>, BaseService<ApplicationExtended>>();
 
             //Services...
             services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<ICommissionService, CommissionService>();
             services.AddScoped<IDocumentService, DocumentService>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

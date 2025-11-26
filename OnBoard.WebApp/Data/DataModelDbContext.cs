@@ -137,8 +137,8 @@ namespace OnBoard.WebApp.Data
         public virtual DbSet<CommissionMember> CommissionMembers { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentType> DocumentTypes { get; set; }
-        public virtual DbSet<MunicipalityDocument> MunicipalityDocuments { get; set; }
         public virtual DbSet<Organization> Organizations { get; set; }
+        public virtual DbSet<OrganizationDocument> OrganizationDocuments { get; set; }
         public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
 
         //Addresses
